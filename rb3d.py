@@ -1,6 +1,10 @@
 from img_deal.__init__ import create_app
+import sys
 
 app = create_app()
+
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 
 @app.route('/')
