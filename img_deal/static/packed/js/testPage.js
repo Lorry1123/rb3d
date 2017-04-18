@@ -153,6 +153,36 @@ var layoutViewModel = function () {
     }
     self.pic_geted(!self.pic_geted());
   };
+
+  self.ret_msg = ko.observable('');
+  self.phone = ko.observable('');
+  self.obj = ko.observable('');
+  self.detail = ko.observable('');
+  self.name = ko.observable('');
+  self.send_msg = function (data, event) {
+    $.post('/img_api/send_msg_yunpian',{
+      phone: self.phone,
+      obj: self.obj,
+      detail: self.detail,
+      name: self.name
+    }, function (res) {
+      self.ret_msg(res);
+      console.log(res);
+    });
+  };
+
+  self.send_msg_dayu = function (data, event) {
+    $.post('/img_api/send_msg_alidayu',{
+      phone: self.phone,
+      obj: self.obj,
+      detail: self.detail,
+      name: self.name
+    }, function (res) {
+      self.ret_msg(res);
+      console.log(res);
+    });
+  }
+
 };
 
 

@@ -48,6 +48,28 @@
     <input type="submit" value="Upload">
   </form>
 </div>
+<h1>云片测试</h1>
+<div>
+  手机号 <input data-bind="value: phone">
+  网站名 <input data-bind="value: name">
+  商品名 <input data-bind="value: obj">
+  详细信息 <input data-bind="value: detail">
+  <br>
+  <button type="button" data-bind="click: send_msg">点击发送验证码至对应手机号</button>
+  <br>
+  <span>返回内容：</span><span data-bind="text: ret_msg"></span>
+</div>
+<h1>阿里大于测试</h1>
+<div>
+  手机号 <input data-bind="value: phone">
+  网站名 <input data-bind="value: name">
+  商品名 <input data-bind="value: obj">
+  详细信息 <input data-bind="value: detail">
+  <br>
+  <button type="button" data-bind="click: send_msg_dayu">点击发送验证码至对应手机号</button>
+  <br>
+  <span>返回内容：</span><span data-bind="text: ret_msg"></span>
+</div>
 <script type="text/javascript" src="./static/packed/js/testPage.js"></script>
 </body>
 </html>
