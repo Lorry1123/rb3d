@@ -1,7 +1,6 @@
 # coding:utf8
 
 from flask import Flask, Blueprint, Response, request
-import Image
 import json
 import datetime
 import requests
@@ -26,14 +25,14 @@ def get_pic():
 @test.route('/upload_pic', methods=['post'])
 def upload_pic():
     file_tmp = request.files['file']
-    img = Image.open(file_tmp)
-    img.show()
-    print '===== img =====', img
-    img.save('./img/upload_pic.png')
-
-    output = open('img_deal/img_api/img/img_upload.jpg', 'w')
-    output.write(file_tmp)
-    output.close()
+    # img = Image.openen(file_tmp)
+    # img.show()
+    # print '===== img =====', img
+    # img.save('./img/upload_pic.png')
+    #
+    # output = open('img_deal/img_api/img/img_upload.jpg', 'w')
+    # output.write(file_tmp)
+    # output.close()
 
     return {'ok': 1}
 
