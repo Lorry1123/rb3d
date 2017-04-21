@@ -73,3 +73,8 @@ dump.rdb
 # static dist
 /img_deal/static/*
 
+
+# img
+*.jpeg
+*.jpg
+*.png
