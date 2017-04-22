@@ -26,8 +26,8 @@ def test():
 
 @img_deal.route('/img')
 def image():
-    img = ImageReader(path=DEFAULT_IMAGE_PATH)
-    # img.decode(DEFAULT_IMAGE_PATH)
-    img.calc_lov(size=3)
-    img.show_lov()
+    img = ImageReader(path=DEFAULT_IMAGE_PATH, name='sophia')
+    img.save(path=DEFAULT_IMAGE_PATH, name='sophia_small')
+    # img.calc_lov(size=3)
+    # img.show_lov(DEFAULT_IMAGE_PATH, name='zebra')
     return 'success'

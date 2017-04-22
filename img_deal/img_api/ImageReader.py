@@ -5,12 +5,11 @@ import os
 import math
 
 
-class ImageReader():
-    def __init__(self, path=None):
+class ImageReader:
+    def __init__(self, path=None, name='test'):
         if not path:
             return
-        # self.img = Image.open(path + 'lena.jpg')
-        self.img = Image.open(path + 'img_test_2.jpg')
+        self.img = Image.open(path + name + '.jpg')
         self.img_array = self.img.load()
         self.sum_map = []
         self.sos_map = []
@@ -25,8 +24,8 @@ class ImageReader():
         print '==========='
         print self.img.size
 
-    def save(self, path):
-        self.img.save(path + 'save_lena.jpg', 'jpeg')
+    def save(self, path, name):
+        self.img.save(path + name + '.jpg', 'jpeg', quality=50)
 
     def calc_lov(self, size=5):
         print 'calc_lov started----------'
@@ -117,7 +116,7 @@ class ImageReader():
 
         return tot
 
-    def show_lov(self):
+    def show_lov(self, path=None, name='test'):
         print 'show_lov started----------'
         img = Image.new(self.img.mode, self.img.size)
         img_array = img.load()
@@ -129,6 +128,8 @@ class ImageReader():
 
         print img
         img.show()
+
+        img.save(path + name + '_lov.jpg', 'jpeg')
 
         print 'show_lov ended----------'
 
