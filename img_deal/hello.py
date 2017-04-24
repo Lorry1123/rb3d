@@ -26,8 +26,10 @@ def test():
 
 @img_deal.route('/img')
 def image():
-    img = ImageReader(path=DEFAULT_IMAGE_PATH, name='sophia')
-    img.save(path=DEFAULT_IMAGE_PATH, name='sophia_small')
+    img = ImageReader(path=DEFAULT_IMAGE_PATH, name='flower_2')
+    # img.save(path=DEFAULT_IMAGE_PATH, name='sophia_small')
     # img.calc_lov(size=3)
     # img.show_lov(DEFAULT_IMAGE_PATH, name='zebra')
+    img.calc_deep_map(debug_mode=True, debug_path=DEFAULT_IMAGE_PATH, name='flower_2')
+    img.red_blue_translation(path=DEFAULT_IMAGE_PATH, name='flower_2')
     return 'success'

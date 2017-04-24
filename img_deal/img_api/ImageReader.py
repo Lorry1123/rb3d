@@ -14,6 +14,9 @@ class ImageReader:
         self.sum_map = []
         self.sos_map = []
         self.lov_map = []
+        self.deep_map = []
+        self.Mmax = (250 * 63.5) / (60 + 250)
+        self.Mmax_pixel = self.Mmax * (math.sqrt(1680 * 1680 + 1050 * 1050) / 2.54 * 13)
         self.h, self.w = self.img.size
 
     def decode(self, path):
@@ -26,6 +29,56 @@ class ImageReader:
 
     def save(self, path, name):
         self.img.save(path + name + '.jpg', 'jpeg', quality=50)
+
+    def resolve(self, x):
+        if x < 0:
+            return 0
+        if x >= self.h:
+            return self.h - 1
+
+        return x
+
+    def red_blue_translation(self, path=None, name=''):
+        img_res = Image.new(self.img.mode, self.img.size)
+        img_res_array = img_res.load()
+
+        for i in range(self.h):
+            for j in range(self.w):
+                r = self.img_array[i, j][0]
+                tmp = self.resolve(i + int(self.Mmax_pixel / 8000000 * self.deep_map[(i - 1) * self.w + j]))
+                g = self.img_array[tmp, j][1]
+                b = self.img_array[tmp, j][2]
+
+                img_res_array[i, j] = (r, g, b)
+
+        img_res.show()
+        img_res.save(path + name + '_3d.jpg', 'jpeg')
+
+    def calc_deep_map(self, debug_mode=False, debug_path='', name=''):
+        print 'calc_deep_map started ---------'
+        if debug_mode:
+            img_tmp = Image.open(debug_path + name + '_lov.jpg')
+            self.h, self.w = img_tmp.size
+            img_array = img_tmp.load()
+
+            self.lov_map = []
+            for i in range(self.h):
+                for j in range(self.w):
+                    self.lov_map.append(img_array[i, j])
+
+        for i in range(self.h):
+            for j in range(self.w):
+                if self.lov_map[(i - 1) * self.w + j] > 20:
+                    x = 255
+                else:
+                    x = int(j * 1.0 / self.w * 255)
+                self.deep_map.append(x)
+
+        print 'deep map length: %d' % len(self.deep_map)
+        # if debug_mode:
+        #     self.show_deep(debug_path, name)
+
+        print 'calc_deep_map ended ---------'
 
     def calc_lov(self, size=5):
         print 'calc_lov started----------'
@@ -133,5 +186,22 @@ class ImageReader:
 
         print 'show_lov ended----------'
 
+    def show_deep(self, path=None, name='test'):
+        print 'show_deep_map started---------'
+
+        img = Image.new(self.img.mode, self.img.size)
+        img_array = img.load()
+        for i in range(self.h):
+            for j in range(self.w):
+                img_array[i, j] = (self.deep_map[(i - 1) * self.w + j], 0, 0)
+
+        img = img.convert('L')
+
+        print img
+        img.show()
+
+        img.save(path + name + '_deep.jpg', 'jpeg')
+
+        print 'show deep map ended -----------'
 
 
