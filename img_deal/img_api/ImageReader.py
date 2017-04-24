@@ -9,6 +9,8 @@ class ImageReader:
     def __init__(self, path=None, name='test'):
         if not path:
             return
+        self.path = path
+        self.name = name
         self.img = Image.open(path + name + '.jpg')
         self.img_array = self.img.load()
         self.sum_map = []
@@ -27,7 +29,11 @@ class ImageReader:
         print '==========='
         print self.img.size
 
-    def save(self, path, name):
+    def save(self, path='', name=''):
+        if not path:
+            path = self.path
+        if not name:
+            name = self.name
         self.img.save(path + name + '.jpg', 'jpeg', quality=50)
 
     def resolve(self, x):
@@ -57,6 +63,10 @@ class ImageReader:
     def calc_deep_map(self, debug_mode=False, debug_path='', name=''):
         print 'calc_deep_map started ---------'
         if debug_mode:
+            if not debug_path:
+                debug_path = self.path
+            if not name:
+                name = self.name
             img_tmp = Image.open(debug_path + name + '_lov.jpg')
             self.h, self.w = img_tmp.size
             img_array = img_tmp.load()
@@ -170,6 +180,10 @@ class ImageReader:
         return tot
 
     def show_lov(self, path=None, name='test'):
+        if not path:
+            path = self.path
+        if not name:
+            name = self.name
         print 'show_lov started----------'
         img = Image.new(self.img.mode, self.img.size)
         img_array = img.load()
@@ -187,6 +201,10 @@ class ImageReader:
         print 'show_lov ended----------'
 
     def show_deep(self, path=None, name='test'):
+        if not path:
+            path = self.path
+        if not name:
+            name = self.name
         print 'show_deep_map started---------'
 
         img = Image.new(self.img.mode, self.img.size)
