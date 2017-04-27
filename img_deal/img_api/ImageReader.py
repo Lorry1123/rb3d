@@ -44,14 +44,18 @@ class ImageReader:
 
         return x
 
-    def red_blue_translation(self, path=None, name=''):
+    def red_blue_translation(self, path='', name=''):
+        if not path:
+            path = self.path
+        if not name:
+            name = self.name
         img_res = Image.new(self.img.mode, self.img.size)
         img_res_array = img_res.load()
 
         for i in range(self.h):
             for j in range(self.w):
                 r = self.img_array[i, j][0]
-                tmp = self.resolve(i + int(self.Mmax_pixel / 8000000 * self.deep_map[(i - 1) * self.w + j]))
+                tmp = self.resolve(i - int(self.Mmax_pixel / 8000000 * self.deep_map[(i - 1) * self.w + j]))
                 g = self.img_array[tmp, j][1]
                 b = self.img_array[tmp, j][2]
 
