@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>欢迎使用在线红蓝3D合成器</title>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+  <script src="//cdn.bootcss.com/knockout/3.4.2/knockout-min.js"></script>
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<body>
+  <div data-bind="visible: ! inited()">
+    <p>正在努力加载中～请稍等哦～</p>
+  </div>
+
+  <div class="panel panel-info" data-bind="visible: inited">
+    <div class="panel-heading">
+      登陆
+    </div>
+    <div id="loginContainer" class="panel-body" data-bind="visible: login_switch() == 1">
+      <div class="form-group">
+        <label>用户名</label>
+        <input data-bind="value: uid" type="text" id="uid" class="form-control" placeholder="请输入用户名">
+      </div>
+      <div class="form-group">
+        <label>密码</label>
+        <input data-bind="value: psw" type="password" id="psw" class="form-control" placeholder="请输入密码">
+      </div>
+      <a href="" data-bind="click: function() {login_switch(-1 * login_switch()); }">没有账号？注册一个吧！</a>
+      <button data-bind="click: login" type="submit" class="btn btn-primary">登陆</button>
+    </div>
+
+    <div id="registContainer" class="panel-body" data-bind="visible: login_switch() == -1">
+      <div class="form-group">
+        <label>自定义用户名</label>
+        <input type="text" data-bind="value: r_uid" class="form-control" placeholder="请输入用户名">
+      </div>
+      <div class="form-group">
+        <label>自定义密码</label>
+        <input type="password" data-bind="value: r_psw" class="form-control" placeholder="请输入密码">
+      </div>
+      <div class="form-group">
+        <label>再次输入密码</label>
+        <input type="password" data-bind="value: r_psw_repeat" class="form-control" placeholder="请再次输入密码">
+      </div>
+      <div class="form-group">
+        <label>手机</label>
+        <input type="text" data-bind="value: r_mobile" class="form-control" placeholder="请输入电话号码">
+      </div>
+      <a href="" data-bind="click: function() {login_switch(-1 * login_switch())}; ">已有账号？直接登陆吧！</a>
+      <button data-bind="click: regist" type="submit" class="btn btn-success">注册</button>
+    </div>
+  </div>
+</body>
+  <script type="text/javascript" src="./static/packed/js/login.js"></script>
+</html>
