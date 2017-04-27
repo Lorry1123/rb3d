@@ -10,3 +10,13 @@ def create_user(user):
 
     con.save()
     return 0
+
+
+def find_user(user):
+    r = list(db.User.collection.find(user))
+
+    print r
+    if r:
+        return 0, r
+    else:
+        return -1, r
