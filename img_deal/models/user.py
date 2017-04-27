@@ -9,7 +9,8 @@ class User(Collection):
     __collection__ = 'user'
     structure = {
         'uid': basestring,
-        'psw': basestring
+        'psw': basestring,
+        'mobile': basestring
     }
     required_fields = ['uid', 'nick', 'psw'],
     default_values = {
