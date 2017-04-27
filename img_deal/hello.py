@@ -51,8 +51,6 @@ def login_check():
 
     r, li = user.find_user(dict(uid=uid, psw=psw))
 
-    print r, li
-
     if not r:
         return jsonify(status=0, msg='ok')
     else:

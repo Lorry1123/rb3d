@@ -15,7 +15,6 @@ def create_user(user):
 def find_user(user):
     r = list(db.User.collection.find(user))
 
-    print r
     if r:
         return 0, r
     else:

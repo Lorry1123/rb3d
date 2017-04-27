@@ -17,7 +17,6 @@ var LoginViewModel = function () {
   self.login = function (data, event) {
     var api = '/img_deal/login_check';
     var data = {uid: self.uid(), psw: self.psw()};
-    console.log(data);
     $.post(api, data, function (res) {
       if (res.status == 0) {
         window.location.href = '/img_deal/index';
@@ -48,7 +47,6 @@ var LoginViewModel = function () {
 
   self.init = function () {
     self.login_switch(1);
-
 
     self.inited(true);
   };
