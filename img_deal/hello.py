@@ -38,7 +38,7 @@ def image():
 
 @img_deal.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template('login_v2.html')
 
 
 @img_deal.route('/login_check', methods=['GET', 'POST'])
