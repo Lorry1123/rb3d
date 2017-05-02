@@ -14,15 +14,35 @@ var LoginViewModel = function () {
   self.r_psw_repeat = ko.observable('');
   self.r_mobile = ko.observable('');
 
+  self.clean = ko.computed(function () {
+    self.uid('');
+    self.psw('');
+    self.r_uid('');
+    self.r_psw('');
+    self.r_psw_repeat('');
+    self.r_mobile('');
+
+    return self.login_switch();
+  });
+
+  self.set_error_log = function (str) {
+    alert(str);
+  };
+
   self.login = function (data, event) {
     var api = '/img_deal/login_check';
     var data = {uid: self.uid(), psw: self.psw()};
+    if (self.uid() == '' || self.psw() == '') {
+      self.set_error_log('用户名或密码为空');
+      return;
+    }
+
     $.post(api, data, function (res) {
       if (res.status == 0) {
         window.location.href = '/img_deal/index';
       }
       else {
-        console.log(res.error);
+        self.set_error_log('用户名或密码不正确');
       }
     });
   };
