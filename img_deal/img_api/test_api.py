@@ -1,10 +1,11 @@
 # coding:utf8
 
-from flask import Flask, Blueprint, Response, request
+from flask import Flask, Blueprint, Response, request, jsonify
 import json
 import datetime
 import requests
 import hashlib
+from PIL import Image
 
 test = Blueprint('test', __name__)
 
@@ -16,25 +17,19 @@ def hello():
 
 @test.route('/get_pic')
 def get_pic():
-    img = file('img_deal/img_api/img/img_test.jpg')
+    img = file('img_deal/img_api/img/img_upload.jpg')
     resp = Response(img, mimetype="imgae/jpeg")
 
     return resp
 
 
-@test.route('/upload_pic', methods=['post'])
+@test.route('/upload_pic', methods=['POST'])
 def upload_pic():
     file_tmp = request.files['file']
-    # img = Image.openen(file_tmp)
-    # img.show()
-    # print '===== img =====', img
-    # img.save('./img/upload_pic.png')
-    #
-    # output = open('img_deal/img_api/img/img_upload.jpg', 'w')
-    # output.write(file_tmp)
-    # output.close()
+    img = Image.open(file_tmp)
+    img.save('img_deal/img_api/img/img_upload.jpg', 'jpeg')
 
-    return {'ok': 1}
+    return jsonify(status=0)
 
 
 @test.route('/send_msg_yunpian', methods=['POST', 'GET'])

@@ -18,7 +18,7 @@ def hello():
 
 @img_deal.route('/index')
 def index():
-    return render_template('layout.html')
+    return render_template('layout_v2.html')
 
 
 @img_deal.route('/test')
@@ -69,3 +69,8 @@ def regist():
     r = user.create_user(dict(uid=uid, psw=psw, mobile=mobile))
 
     return jsonify(status=r)
+
+
+@img_deal.route('/fast_make', methods=['GET', 'POST'])
+def fast_make():
+    return render_template('fastPage.html')
