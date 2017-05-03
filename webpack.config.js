@@ -9,7 +9,8 @@ module.exports = {
   // },
   entry: {
     testPage: './frontend/js/pages/testPage.js',
-    login: './frontend/js/pages/login.js'
+    login: './frontend/js/pages/login.js',
+    fastPage : './frontend/js/pages/fastPage.js'
   },
   output: {
     path: './img_deal/static/packed/js',
