@@ -1,0 +1,29 @@
+{% extends "layout_v2.html" %}
+
+{% block bodyId -%} fastPage {%- endblock %}
+
+{% block content %}
+  <div id="content">
+    <br><br><br>
+    <div class="row">
+      <div class="col col-md-6">
+        <div class="center-block">
+          <div class="panel panel-default">
+            <div class="panel-heading">上传图片</div>
+            <div class="panel-body">
+              <form id="form" class="form-group" action="../img_api/upload_pic" method="post" enctype="multipart/form-data">
+                <input class="form-control" type="file" name="file">
+                <input class="btn btn-default" type="submit" value="Upload" id="pic_submit" data-bind="onclick: pic_submit">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col col-md-6">
+        <img id="imgContainer">
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="./static/packed/js/fastPage.js"></script>
+{% endblock %}
