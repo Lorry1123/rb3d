@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, request, jsonify
+from flask import Flask, Blueprint, render_template, request, jsonify, Response
 from img_deal.img_api import ImageReader
 from img_deal.actions import user
 
@@ -28,12 +28,16 @@ def test():
 
 @img_deal.route('/img')
 def image():
-    img = ImageReader(path=DEFAULT_IMAGE_PATH, name='lena')
-    # img.calc_lov(size=3)
-    # img.show_lov(DEFAULT_IMAGE_PATH, name='zebra')
-    img.calc_deep_map(debug_mode=True)
+    img = ImageReader(path=DEFAULT_IMAGE_PATH, name='img_upload')
+    img.calc_lov(size=3)
+    img.show_lov(show=False)
+    img.calc_deep_map()
     img.red_blue_translation()
-    return 'success'
+
+    ret = file(DEFAULT_IMAGE_PATH + 'img_upload_3d' + '.jpg')
+    resp = Response(ret, mimetype='image/jpeg')
+
+    return resp
 
 
 @img_deal.route('/login')

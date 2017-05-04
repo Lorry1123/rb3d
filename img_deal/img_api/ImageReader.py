@@ -21,6 +21,8 @@ class ImageReader:
         self.Mmax_pixel = self.Mmax * (math.sqrt(1680 * 1680 + 1050 * 1050) / 2.54 * 13)
         self.h, self.w = self.img.size
 
+        print 'in image reader , inited'
+
     def decode(self, path):
         self.img = Image.open(path + 'lena.jpg')
         self.img_array = self.img.load()
@@ -61,7 +63,7 @@ class ImageReader:
 
                 img_res_array[i, j] = (r, g, b)
 
-        img_res.show()
+        # img_res.show()
         img_res.save(path + name + '_3d.jpg', 'jpeg')
 
     def calc_deep_map(self, debug_mode=False, debug_path='', name=''):
@@ -183,7 +185,7 @@ class ImageReader:
 
         return tot
 
-    def show_lov(self, path=None, name='test'):
+    def show_lov(self, path=None, name='test', show=True):
         if not path:
             path = self.path
         if not name:
@@ -198,7 +200,8 @@ class ImageReader:
         img = img.convert('L')
 
         print img
-        img.show()
+        if show:
+            img.show()
 
         img.save(path + name + '_lov.jpg', 'jpeg')
 

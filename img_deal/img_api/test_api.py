@@ -6,8 +6,11 @@ import datetime
 import requests
 import hashlib
 from PIL import Image
+# from img_deal.actions import image as img_act
+from img_deal.img_api import ImageReader
 
 test = Blueprint('test', __name__)
+DEFAULT_IMAGE_PATH = 'img_deal/img_api/img/'
 
 
 @test.route('/hello')
@@ -18,7 +21,22 @@ def hello():
 @test.route('/get_pic')
 def get_pic():
     img = file('img_deal/img_api/img/img_upload.jpg')
-    resp = Response(img, mimetype="imgae/jpeg")
+    resp = Response(img, mimetype="image/jpeg")
+
+    return resp
+
+
+@test.route('/get_3d_pic')
+def get_3d_pic():
+    # TODO: fix the bug 'module' is not callable
+    img = ImageReader(path=DEFAULT_IMAGE_PATH, name='img_upload')
+    img.calc_lov(size=3)
+    img.show_lov(show=False)
+    img.calc_deep_map()
+    img.red_blue_translation()
+
+    ret = file(DEFAULT_IMAGE_PATH + 'img_upload_3d' + '.jpg')
+    resp = Response(ret, mimetype='image/jpeg')
 
     return resp
 
@@ -29,7 +47,7 @@ def upload_pic():
     img = Image.open(file_tmp)
     img.save('img_deal/img_api/img/img_upload.jpg', 'jpeg')
 
-    return jsonify(status=0)
+    return jsonify(status=0, src='../img_api/get_pic')
 
 
 @test.route('/send_msg_yunpian', methods=['POST', 'GET'])
