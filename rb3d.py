@@ -2,6 +2,7 @@ from img_deal.__init__ import create_app
 import sys
 
 app = create_app()
+app.config['SECRET_KEY'] = '123456789'
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
