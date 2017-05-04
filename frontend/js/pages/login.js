@@ -39,7 +39,7 @@ var LoginViewModel = function () {
 
     $.post(api, data, function (res) {
       if (res.status == 0) {
-        window.location.href = '/img_deal/index';
+        window.location.href = '/img_deal/list';
       }
       else {
         self.set_error_log('用户名或密码不正确');
