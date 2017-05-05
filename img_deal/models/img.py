@@ -5,14 +5,13 @@ from . import db
 
 
 @db.register
-class User(Collection):
-    __collection__ = 'user'
+class Img(Collection):
+    __collection__ = 'img'
     structure = {
         'uid': basestring,
-        'psw': basestring,
-        'mobile': basestring
+        'name': basestring,
     }
-    required_fields = ['uid', 'nick', 'psw'],
+    required_fields = ['uid', 'name'],
     default_values = {
     }
     indexes = [

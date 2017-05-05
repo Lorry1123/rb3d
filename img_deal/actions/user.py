@@ -19,3 +19,12 @@ def find_user(user):
         return 0, r
     else:
         return -1, r
+
+
+def get_img_list(uid):
+    r = list(db.Img.collection.find({'uid': uid}))
+
+    if r:
+        return 0, r
+    else:
+        return -1, r

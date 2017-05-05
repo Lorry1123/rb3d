@@ -3,3 +3,4 @@
 from .db import db
 
 from . import user
+from . import img
