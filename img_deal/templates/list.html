@@ -5,4 +5,12 @@
 {% block content %}
   <br><br><br>
   <h1>List Page</h1>
+  <a data-bind="visible: show_fast_make" href="../img_deal/fast_make">还没有创建图片？快去试试吧！</a>
+
+  <!-- ko: if: inited() -->
+  <div id="image_list">
+  </div>
+  <!-- /ko -->
+
+  <script type="text/javascript" src="./static/packed/js/listPage.js"></script>
 {% endblock %}

@@ -3,14 +3,14 @@
  */
 var webpack = require('webpack');
 
+var DEFAULT_PAGES_PATH = './frontend/js/pages/';
+
 module.exports = {
-  // entry: {
-  //   testPage: './img_deal/static/js/viewmodels/testPage.js'
-  // },
   entry: {
-    testPage: './frontend/js/pages/testPage.js',
-    login: './frontend/js/pages/login.js',
-    fastPage : './frontend/js/pages/fastPage.js'
+    testPage: DEFAULT_PAGES_PATH + 'testPage.js',
+    login: DEFAULT_PAGES_PATH + 'login.js',
+    fastPage : DEFAULT_PAGES_PATH + 'fastPage.js',
+    listPage: DEFAULT_PAGES_PATH + 'listPage.js'
   },
   output: {
     path: './img_deal/static/packed/js',

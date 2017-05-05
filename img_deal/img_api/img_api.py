@@ -1,4 +1,4 @@
-# coding:utf8
+# coding: utf8
 
 from flask import Flask, Blueprint, Response, request, jsonify
 import json
@@ -6,43 +6,41 @@ import datetime
 import requests
 import hashlib
 from PIL import Image
-# from img_deal.actions import image as img_act
-from img_deal.img_api import ImageReader
+from img_deal.actions import image_act as img_act
 
 test = Blueprint('test', __name__)
 DEFAULT_IMAGE_PATH = 'img_deal/img_api/img/'
 
 
-@test.route('/get_pic')
-def get_pic():
-    img = file('img_deal/img_api/img/img_upload.jpg')
+@test.route('/get_pic', methods=['POST', 'GET'])
+@test.route('/get_pic/<string:name>', methods=['POST', 'GET'])
+def get_pic(name=''):
+    print name
+    img = file(DEFAULT_IMAGE_PATH + name + '.jpg')
     resp = Response(img, mimetype="image/jpeg")
 
     return resp
 
 
-@test.route('/get_3d_pic')
-def get_3d_pic():
-    # TODO: fix the bug 'module' is not callable
-    img = ImageReader(path=DEFAULT_IMAGE_PATH, name='img_upload')
-    img.calc_lov(size=3)
-    img.show_lov(show=False)
-    img.calc_deep_map()
-    img.red_blue_translation()
-
-    ret = file(DEFAULT_IMAGE_PATH + 'img_upload_3d' + '.jpg')
+@test.route('/get_3d_pic/<string:name>', methods=['POST', 'GET'])
+def get_3d_pic(name=''):
+    ret = img_act.make_3d_pic(name)
     resp = Response(ret, mimetype='image/jpeg')
 
     return resp
 
 
-@test.route('/upload_pic', methods=['POST'])
-def upload_pic():
+@test.route('/upload_pic', methods=['POST', 'GET'])
+@test.route('/upload_pic/<string:name>', methods=['POST', 'GET'])
+def upload_pic(name=''):
+    # name = request.values.get('name')
+    print 'name:', name
     file_tmp = request.files['file']
     img = Image.open(file_tmp)
-    img.save('img_deal/img_api/img/img_upload.jpg', 'jpeg')
+    img.save(DEFAULT_IMAGE_PATH + name + '.jpg', 'jpeg')
+    img_act.save_to_db(name)
 
-    return jsonify(status=0, src='../img_api/get_pic')
+    return jsonify(status=0, src='../img_api/get_pic/' + name)
 
 
 # @test.route('/send_msg_yunpian', methods=['POST', 'GET'])

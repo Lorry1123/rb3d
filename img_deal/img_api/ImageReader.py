@@ -1,7 +1,6 @@
 # coding: utf8
 
 from PIL import Image
-import os
 import math
 
 
@@ -57,7 +56,7 @@ class ImageReader:
         for i in range(self.h):
             for j in range(self.w):
                 r = self.img_array[i, j][0]
-                tmp = self.resolve(i - int(self.Mmax_pixel / 8000000 * self.deep_map[(i - 1) * self.w + j]))
+                tmp = self.resolve(i + int(self.Mmax_pixel / 8000000 * self.deep_map[(i - 1) * self.w + j]))
                 g = self.img_array[tmp, j][1]
                 b = self.img_array[tmp, j][2]
 
@@ -185,7 +184,7 @@ class ImageReader:
 
         return tot
 
-    def show_lov(self, path=None, name='test', show=True):
+    def show_lov(self, path=None, name=None, show=True):
         if not path:
             path = self.path
         if not name:
@@ -204,6 +203,7 @@ class ImageReader:
             img.show()
 
         img.save(path + name + '_lov.jpg', 'jpeg')
+        print 'lov pic saved'
 
         print 'show_lov ended----------'
 

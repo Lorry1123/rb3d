@@ -46,3 +46,15 @@ def regist():
     r = user_act.create_user(dict(uid=uid, psw=psw, mobile=mobile))
 
     return jsonify(status=r)
+
+
+@user.route('/img_list', methods=['GET', 'POST'])
+def img_list():
+    r, ret_list = user_act.get_img_list(session['uid'])
+
+    for item in ret_list:
+        item.pop('_id')
+
+    print ret_list
+
+    return jsonify(status=r, img_list=ret_list)

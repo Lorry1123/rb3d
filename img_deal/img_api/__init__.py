@@ -1,4 +1,4 @@
-from .test_api import test
+from .img_api import test
 from .ImageReader import ImageReader
 
 
