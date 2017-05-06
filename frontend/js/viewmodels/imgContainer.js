@@ -23,6 +23,15 @@ var imgContainerViewModel = function (parent) {
     };
     $('#form').ajaxForm(option);
   });
+
+  self.set_image_name = function () {
+    self.name = Math.random();
+    while (self.name < 10000) {
+      self.name *= 10;
+    }
+    self.name = parseInt(self.name);
+    console.log('name:', self.name);
+  };
 };
 
 module.exports = imgContainerViewModel;

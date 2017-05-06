@@ -6,7 +6,7 @@ var imgContainerViewModel = require('../viewmodels/imgContainer.js');
 
 var fastPageViewModel = function () {
   var self = this;
-
+  self.inited = ko.observable(false);
   self.loading = ko.observable(false);
 
 
@@ -31,12 +31,9 @@ var fastPageViewModel = function () {
   self.init = function () {
     self.loading(false);
     self.submitted(false);
-    self.name = Math.random();
-    while (self.name < 10000) {
-      self.name *= 10;
-      console.log(self.name);
-    }
-    self.name = parseInt(self.name);
+    self.set_image_name();
+
+    self.inited(true);
   };
 
   self.init();
