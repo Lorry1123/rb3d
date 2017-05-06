@@ -1,0 +1,41 @@
+{% extends "layout_v2.html" %}
+
+{% block bodyId -%} enhancedPage {%- endblock %}
+
+{% block content %}
+  <br><br><br>
+  <h1>enhanced page</h1>
+
+  <div id="step1" data-bind="visible: step() == 1">
+    <ol class="breadcrumb">
+      <li>高级制作</li>
+      <li class="active"><a href="#">step1</a></li>
+      <li>step2</li>
+    </ol>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">上传图片</div>
+      <div class="panel-body">
+        <form id="form" class="form-group" method="post" enctype="multipart/form-data">
+          <input class="form-control" type="file" name="file">
+          <input class="btn btn-default" type="submit" value="Upload" id="pic_submit">
+        </form>
+        <div class="col col-md-6">
+          <img id="imgContainer">
+        </div>
+      </div>
+    </div>
+    <h2>step1</h2>
+  </div>
+
+  <div id="step2" data-bind="visible: step() == 2">
+    <ol class="breadcrumb">
+      <li>高级制作</li>
+      <li>step1</li>
+      <li class="active"><a href="#">step2</a></li>
+    </ol>
+    <h2>step2</h2>
+  </div>
+
+  <script type="text/javascript" src="./static/packed/js/enhancedPage.js"></script>
+{% endblock %}

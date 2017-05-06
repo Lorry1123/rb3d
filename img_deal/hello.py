@@ -31,6 +31,12 @@ def fast_make():
     return render_template('fastPage.html')
 
 
+@img_deal.route('/enhanced_make', methods=['GET', 'POST'])
+@login_required
+def enhanced_make():
+    return render_template('enhancedPage.html')
+
+
 @img_deal.route('/test')
 def test():
     return render_template('testPage.html')

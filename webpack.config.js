@@ -10,7 +10,8 @@ module.exports = {
     testPage: DEFAULT_PAGES_PATH + 'testPage.js',
     login: DEFAULT_PAGES_PATH + 'login.js',
     fastPage : DEFAULT_PAGES_PATH + 'fastPage.js',
-    listPage: DEFAULT_PAGES_PATH + 'listPage.js'
+    listPage: DEFAULT_PAGES_PATH + 'listPage.js',
+    enhancedPage: DEFAULT_PAGES_PATH + 'enhancedPage.js'
   },
   output: {
     path: './img_deal/static/packed/js',
