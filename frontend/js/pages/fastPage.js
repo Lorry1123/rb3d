@@ -2,29 +2,15 @@
  * Created by luorui on 2017/5/2.
  */
 
+var imgContainerViewModel = require('../viewmodels/imgContainer.js');
+
 var fastPageViewModel = function () {
   var self = this;
+
   self.loading = ko.observable(false);
-  self.submitted = ko.observable(false);
-  self.name = 0;
-
-  $(document).ready(function () {
-    var url = '../img_api/upload_pic/' + self.name;
-    var success = function (res) {
-      if (res.status != 0) {
-        alert('请确认上传文件是否为图片');
-      }
-      $("#imgContainer").attr('src', res.src + '?t=' + Math.random());
-      self.submitted(true);
-    };
-    var option = {
-      url: url,
-      success: success
-    };
-    $('#form').ajaxForm(option);
 
 
-  });
+  imgContainerViewModel(self);
 
   self.get_3d_pic = function (data, event) {
     if (!self.submitted()) {
