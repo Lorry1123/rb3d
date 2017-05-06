@@ -25,7 +25,20 @@
         </div>
       </div>
     </div>
-    <h2>step1</h2>
+    <div id="options">
+      <p>选项</p>
+      <button class="btn btn-primary">选择主体区域</button>
+      <label>直接在图片上点击主体区域的左上角和右下角</label>
+      <br>
+      <button class="btn btn-primary">选择识别精度</button>
+      <label>数值越大识别越精确，但可能导致背景也被识别</label>
+      <br>
+      <button class="btn btn-primary">设置阈值</button>
+      <label>0.00 到 1.00，数值越小识别越精确，但可能导致背景也被识别</label>
+    </div>
+    <div id="next_step">
+      <button class="btn btn-success btn-large" data-bind="click: function() { switch_step(2); }">下一步</button>
+    </div>
   </div>
 
   <div id="step2" data-bind="visible: step() == 2">
@@ -34,7 +47,28 @@
       <li>step1</li>
       <li class="active"><a href="#">step2</a></li>
     </ol>
+
+    <img id="step2_imgContainer">
+    <div id="step2_options">
+      <p>选项</p>
+      <input placeholder="显示器尺寸" data-bind="">
+      <label>输入你的显示器尺寸，单位：英寸（如：13， 15.6， 17）</label>
+      <br>
+      <input placeholder="宽" data-bind="">*<input placeholder="高" data-bind="">
+      <label>输入你当前的分辨率，单位：像素（如：1920 * 1080）</label>
+    </div>
+
+
     <h2>step2</h2>
+    <div id="finish_step">
+      <button class="btn btn-primary btn-large" data-bind="click: function() { switch_step(1); }">上一步</button>
+      <button class="btn btn-success btn-large" data-bind="click: function() { switch_step(3); }">开始制作！</button>
+    </div>
+  </div>
+
+  <div id="step3" data-bind="visible: step() == 3">
+    <h1>完成</h1>
+    <a class="btn btn-success btn-large" href="../img_deal/list">前往图片列表页</a>
   </div>
 
   <script type="text/javascript" src="./static/packed/js/enhancedPage.js"></script>

@@ -37,8 +37,8 @@ def upload_pic(name=''):
     print 'name:', name
     file_tmp = request.files['file']
     img = Image.open(file_tmp)
-    img.save(DEFAULT_IMAGE_PATH + name + '.jpg', 'jpeg')
-    img_act.save_to_db(name)
+    # img.save(DEFAULT_IMAGE_PATH + name + '.jpg', 'jpeg')
+    # img_act.save_to_db(name)
 
     return jsonify(status=0, src='../img_api/get_pic/' + name)
 
