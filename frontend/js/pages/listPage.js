@@ -24,12 +24,11 @@ var ListPageViewModel = function () {
 
       var list_container = $("#image_list");
       $.each(self.img_list(), function (index, element) {
-        var img1, img2, div1;
-        div1 = $('<div>');
-        img1 = $('<img>').attr('src', '../img_api/get_pic/' + element + '?t=' + Math.random());
-        img2 = $('<img>').attr('src', '../img_api/get_pic/' + element + '_3d?t=' + Math.random());
-        div1.append(img1).append(img2);
-        console.log(img1, img2);
+        var div1 = $('<div>');
+        var img1 = $('<img>').attr('src', '../img_api/get_pic/' + element + '?t=' + Math.random());
+        var img2 = $('<img>').attr('src', '../img_api/get_pic/' + element + '_3d?t=' + Math.random());
+        var a1 = $('<a>').attr('href', '../img_api/get_pic/' + element + '_3d').append('查看原图');
+        div1.append(img1).append(img2).append(a1);
         list_container.append(div1);
       });
     });
