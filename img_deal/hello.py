@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, request, jsonify, Response, session
+from flask import Flask, Blueprint, render_template, request, jsonify, Response, session, redirect
 from img_deal.ext.decorators import login_required
 
 IMG_DEAL_NAME = 'img_deal'
@@ -16,6 +16,8 @@ def index():
 
 @img_deal.route('/login')
 def login():
+    if 'uid' in session:
+        return redirect('../img_deal/list')
     return render_template('login_v2.html')
 
 
