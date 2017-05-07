@@ -25,3 +25,7 @@ def save_to_db(name):
     if r:
         print 'save img'
         img_db.create_img(img)
+
+
+def make_lov(name):
+    pass

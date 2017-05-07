@@ -37,10 +37,33 @@ def upload_pic(name=''):
     print 'name:', name
     file_tmp = request.files['file']
     img = Image.open(file_tmp)
-    # img.save(DEFAULT_IMAGE_PATH + name + '.jpg', 'jpeg')
+    img.save(DEFAULT_IMAGE_PATH + name + '.jpg', 'jpeg')
     # img_act.save_to_db(name)
 
     return jsonify(status=0, src='../img_api/get_pic/' + name)
+
+
+@test.route('/get_lov', methods=['POST', 'GET'])
+@test.route('/get_lov/<string:name>', methods=['POST', 'GET'])
+def get_lov(name=''):
+    img = file(DEFAULT_IMAGE_PATH + name + '_lov.jpg')
+    resp = Response(img, mimetype='image/jpeg')
+
+    return resp
+
+
+@test.route('/make_lov', methods=['POST', 'GET'])
+def make_lov():
+    name = request.values.get('name')
+    x_low = request.values.get('x_low')
+    y_low = request.values.get('y_low')
+    x_high = request.values.get('x_high')
+    y_high = request.values.get('y_high')
+    threshold = request.values.get('threshold')
+    size = request.values.get('size')
+
+    pass
+
 
 
 # @test.route('/send_msg_yunpian', methods=['POST', 'GET'])

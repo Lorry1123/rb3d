@@ -3,73 +3,124 @@
 {% block bodyId -%} enhancedPage {%- endblock %}
 
 {% block content %}
-  <br><br><br>
-  <h1>enhanced page</h1>
+  {#  <style>#}
+  {#    .error {#}
+  {#      color: #a94442;#}
+  {#    }#}
+  {#  </style>#}
+  <div class="container">
+    <br><br><br>
+    <h1>enhanced page</h1>
 
-  <div id="step1" data-bind="visible: step() == 1">
-    <ol class="breadcrumb">
-      <li>高级制作</li>
-      <li class="active"><a href="#">step1</a></li>
-      <li>step2</li>
-    </ol>
+    <div id="step1" data-bind="visible: step() == 1">
+      <ol class="breadcrumb">
+        <li>高级制作</li>
+        <li class="active"><a href="#">step1</a></li>
+        <li>step2</li>
+      </ol>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">上传图片</div>
-      <div class="panel-body">
-        <form id="form" class="form-group" method="post" enctype="multipart/form-data">
-          <input class="form-control" type="file" name="file">
-          <input class="btn btn-default" type="submit" value="Upload" id="pic_submit">
-        </form>
-        <div class="col col-md-6">
-          <img id="imgContainer">
+      <div class="panel panel-default">
+        <div class="panel-heading">上传图片</div>
+        <div class="panel-body">
+          <div class="row">
+            <form id="form" class="form-group" method="post" enctype="multipart/form-data">
+              <input class="form-control" type="file" name="file">
+              <input class="btn btn-default" type="submit" value="Upload" id="pic_submit">
+            </form>
+            <div class="col col-md-6">
+              <img id="imgContainer" data-bind="click: set_xy, visible: submitted">
+              <div class="alert alert-success" role="alert" data-bind="visible: xy_append().length > 0">
+                <label data-bind="text: xy_append"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="options">
+        <p>选项</p>
+        <div>
+          <button class="btn btn-primary" data-bind="click: choose_area">选择主体区域</button>
+          <label>直接在图片上点击主体区域的左上角和右下角</label>
+          <br data-bind="visible: area_text().length > 0">
+          <label id="pos" data-bind="visible: area_text().length > 0, text: area_text"></label>
+        </div>
+
+        <div class="row">
+          <form role="form">
+            <div class="form-group col col-md-8">
+              <label for="name"><br>选择精确度<span>（数值越大主体细节识别越精确，但相应计算时间大幅度增加，可能导致背景也被识别）</span></label>
+              <select class="form-control" data-bind="value: size">
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+          </form>
+        </div>
+
+        <div class="row">
+          <form class="form-group col col-md-8" id="threshold_input"
+                data-bind="css: {'has-error': check_input() == -1}">
+            <label>设置阈值，0.00 到 1.00（数值越小主体细节识别越精确，但可能导致背景也被识别）</label>
+            <input id="threshold" name="threshold" type="text" class="form-control" placeholder="填写阈值"
+                   data-bind="value: threshold" max="1" min="0" number="true">
+          </form>
+        </div>
+
+        <div>
+          <button class="btn btn-primary btn-large" data-bind="step1_preview">预览主体分析结果</button>
+          <img id="step1_preview">
+        </div>
+      </div>
+
+      <div class="row">
+        <div id="next_step" class="col col-md-2 col-md-offset-5">
+          <button type="button" class="btn btn-success btn-large btn-block"
+                  data-bind="click: function() { switch_step(2); }">下一步
+          </button>
         </div>
       </div>
     </div>
-    <div id="options">
+
+    <div id="step2" data-bind="visible: step() == 2">
+      <ol class="breadcrumb">
+        <li>高级制作</li>
+        <li>step1</li>
+        <li class="active"><a href="#">step2</a></li>
+      </ol>
+
+      <img id="step2_imgContainer">
+
       <p>选项</p>
-      <button class="btn btn-primary">选择主体区域</button>
-      <label>直接在图片上点击主体区域的左上角和右下角</label>
-      <br>
-      <button class="btn btn-primary">选择识别精度</button>
-      <label>数值越大识别越精确，但可能导致背景也被识别</label>
-      <br>
-      <button class="btn btn-primary">设置阈值</button>
-      <label>0.00 到 1.00，数值越小识别越精确，但可能导致背景也被识别</label>
-    </div>
-    <div id="next_step">
-      <button class="btn btn-success btn-large" data-bind="click: function() { switch_step(2); }">下一步</button>
-    </div>
-  </div>
+      <div id="step2_options" class="row">
+        <form role="form" id="screen_size" class="form-group col-md-4">
+          <label>输入你的显示器尺寸，单位：英寸（如：13， 15.6， 17）</label>
+          <input class="form-control" placeholder="显示器尺寸" data-bind="text: screen_size" number="true" min="0">
+        </form>
+        <form role="form" id="screen_pixel" class="form-group col-md-4">
+          <label>输入你当前的分辨率，单位：像素（如：1920 * 1080）</label>
+          <input class="form-control" placeholder="宽" data-bind="text: screen_x" digits="true">
+          *<input class="form-control" placeholder="高" data-bind="text: screen_y" digits="true">
+        </form>
+      </div>
 
-  <div id="step2" data-bind="visible: step() == 2">
-    <ol class="breadcrumb">
-      <li>高级制作</li>
-      <li>step1</li>
-      <li class="active"><a href="#">step2</a></li>
-    </ol>
-
-    <img id="step2_imgContainer">
-    <div id="step2_options">
-      <p>选项</p>
-      <input placeholder="显示器尺寸" data-bind="">
-      <label>输入你的显示器尺寸，单位：英寸（如：13， 15.6， 17）</label>
-      <br>
-      <input placeholder="宽" data-bind="">*<input placeholder="高" data-bind="">
-      <label>输入你当前的分辨率，单位：像素（如：1920 * 1080）</label>
+      <div id="finish_step" class="row">
+        <div class="col-md-2 col-md-offset-4">
+          <button class="btn btn-primary btn-large btn-block" data-bind="click: function() { switch_step(1); }">上一步
+          </button>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-success btn-large btn-block" data-bind="click: function() { switch_step(3); }">开始制作！
+          </button>
+        </div>
+      </div>
     </div>
 
-
-    <h2>step2</h2>
-    <div id="finish_step">
-      <button class="btn btn-primary btn-large" data-bind="click: function() { switch_step(1); }">上一步</button>
-      <button class="btn btn-success btn-large" data-bind="click: function() { switch_step(3); }">开始制作！</button>
+    <div id="step3" data-bind="visible: step() == 3">
+      <h1>完成</h1>
+      <a class="btn btn-success btn-large" href="../img_deal/list">前往图片列表页</a>
     </div>
   </div>
-
-  <div id="step3" data-bind="visible: step() == 3">
-    <h1>完成</h1>
-    <a class="btn btn-success btn-large" href="../img_deal/list">前往图片列表页</a>
-  </div>
-
   <script type="text/javascript" src="./static/packed/js/enhancedPage.js"></script>
 {% endblock %}
