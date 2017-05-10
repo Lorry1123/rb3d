@@ -27,5 +27,11 @@ def save_to_db(name):
         img_db.create_img(img)
 
 
-def make_lov(name):
-    pass
+def make_lov(name, area, threshold, size):
+    img = ImageReader(path=DEFAULT_IMAGE_PATH, name=name)
+    img.calc_lov(size=size, area=area, threshold=threshold)
+    img.show_lov(show=False)
+
+    ret = file(DEFAULT_IMAGE_PATH + name + '_lov.jpg')
+
+    return ret

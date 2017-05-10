@@ -95,38 +95,52 @@ class ImageReader:
 
         print 'calc_deep_map ended ---------'
 
-    def calc_lov(self, size=5):
+    def calc_lov(self, size=5, area=None, threshold=0.05):
         print 'calc_lov started----------'
-        self.calc_sos(size)
+        if not area:
+            area = dict(x_low=0, y_low=0, x_high=self.w, y_high=self.h)
+        print 'in calc_lov: ', area
+        self.calc_sos(size, area)
 
         max_lov = 0
         for data in self.sos_map:
             if math.sqrt(data) > max_lov:
                 max_lov = math.sqrt(data)
-            self.lov_map.append(min(255, int(math.sqrt(data) / 0.05)))
+            self.lov_map.append(min(255, int(math.sqrt(data) / threshold)))
 
         print 'length of lov_map: %d' % len(self.lov_map)
         print 'max lov:', max_lov
 
         print 'calc_lov ended------------'
 
-    def calc_sos(self, size=5):
+    def calc_sos(self, size, area):
         print 'calc_sos started-----------'
-        self.calc_mean(size=size)
+        self.calc_mean(size)
         print 'sum map length:', len(self.sum_map)
-        self.calc_variance(size=size)
+        self.calc_variance(size, area)
         print 'sos map length:', len(self.sos_map)
 
         print 'calc_sos ended-----------'
 
-    def calc_variance(self, size=5):
+    def in_area(self, x, y, area):
+        if x < area['x_low'] or x > area['x_high']:
+            return False
+        if y < area['y_low'] or y > area['y_high']:
+            return False
+
+        return True
+
+    def calc_variance(self, size, area):
         print 'calc_variance started-----------'
         for i in range(self.h):
             for j in range(self.w):
-                self.sos_map.append(self.calc_area_variance(i, j, size))
+                if not self.in_area(i, j, area):
+                    self.sos_map.append(0)
+                else:
+                    self.sos_map.append(self.calc_area_variance(i, j, size))
         print 'calc_variance ended---------'
 
-    def calc_mean(self, size=5):
+    def calc_mean(self, size):
         print 'calc_mean started------------'
         for i in range(self.h):
             for j in range(self.w):

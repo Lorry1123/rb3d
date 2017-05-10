@@ -69,7 +69,7 @@
         </div>
 
         <div>
-          <button class="btn btn-primary btn-large" data-bind="step1_preview">预览主体分析结果</button>
+          <button class="btn btn-primary btn-large" data-bind="click: step1_preview">预览主体分析结果</button>
           <img id="step1_preview">
         </div>
       </div>
@@ -77,7 +77,7 @@
       <div class="row">
         <div id="next_step" class="col col-md-2 col-md-offset-5">
           <button type="button" class="btn btn-success btn-large btn-block"
-                  data-bind="click: function() { switch_step(2); }">下一步
+                  data-bind="click: next_step">下一步
           </button>
         </div>
       </div>

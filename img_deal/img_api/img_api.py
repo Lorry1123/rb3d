@@ -55,14 +55,18 @@ def get_lov(name=''):
 @test.route('/make_lov', methods=['POST', 'GET'])
 def make_lov():
     name = request.values.get('name')
-    x_low = request.values.get('x_low')
-    y_low = request.values.get('y_low')
-    x_high = request.values.get('x_high')
-    y_high = request.values.get('y_high')
-    threshold = request.values.get('threshold')
-    size = request.values.get('size')
+    x_low = int(request.values.get('x_low'))
+    y_low = int(request.values.get('y_low'))
+    x_high = int(request.values.get('x_high'))
+    y_high = int(request.values.get('y_high'))
+    threshold = float(request.values.get('threshold'))
+    size = int(request.values.get('size'))
+    area = dict(x_low=x_low, x_high=x_high, y_low=y_low, y_high=y_high)
 
-    pass
+    ret = img_act.make_lov(name, area, threshold, size)
+    resp = Response(ret, mimetype='image/jpeg')
+
+    return resp
 
 
 
