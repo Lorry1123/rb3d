@@ -2,7 +2,7 @@
 
 import functools
 
-from flask import abort, session
+from flask import abort, session, redirect
 
 
 def login_required(func):
@@ -11,6 +11,6 @@ def login_required(func):
         if 'uid' in session and session['uid']:
             return func(*args, **kwargs)
         else:
-            abort(401)
+            return redirect('./img_deal/login')
 
     return wrapper
