@@ -98,7 +98,7 @@ class ImageReader:
     def calc_lov(self, size=5, area=None, threshold=0.05):
         print 'calc_lov started----------'
         if not area:
-            area = dict(x_low=0, y_low=0, x_high=self.w, y_high=self.h)
+            area = dict(x_low=0, y_low=0, x_high=self.h, y_high=self.w)
         print 'in calc_lov: ', area
         self.calc_sos(size, area)
 
