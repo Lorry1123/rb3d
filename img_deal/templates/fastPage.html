@@ -4,20 +4,27 @@
 
 {% block content %}
   <div class="container">
-
     <div id="content">
       <br><br><br>
+      <h1>一键制作</h1><br>
       <div class="row">
         <div class="col col-md-6">
           <div class="center-block">
             <div class="panel panel-default">
               <div class="panel-heading">上传图片</div>
               <div class="panel-body">
-                <form id="form" class="form-group" method="post" enctype="multipart/form-data">
-                  <input class="form-control" type="file" name="file">
-                  <input class="btn btn-default" type="submit" value="Upload" id="pic_submit">
+                <form id="form" method="post" enctype="multipart/form-data">
+
+                  <div class="form-group">
+                    <label for="file">选择一张图片并上传</label>
+                    <input type="file" id="file" name="file">
+                    <p class="help-block">暂时只支持jpg、png格式</p>
+                    <br>
+
+                    <input class="btn btn-success btn-small" type="submit" value="Upload" id="pic_submit">
+                  </div>
                 </form>
-                <div class="col col-md-6">
+                <div class="col col-md-6" data-bind="visible: submitted">
                   <img id="imgContainer">
                 </div>
               </div>
@@ -29,10 +36,11 @@
             <div class="panel panel-default">
               <div class="panel-heading">生成图片</div>
               <div class="panel-body">
+                                <img id="3dimgContainer"><br><br><br>
                 <button type="submit" class="btn btn-success" data-bind="click: get_3d_pic">一键生成</button>
                 <br>
-                <p data-bind="visible: loading">请稍等</p>
-                <img id="3dimgContainer">
+                {#                <p data-bind="visible: loading">请稍等</p>#}
+
               </div>
             </div>
           </div>
