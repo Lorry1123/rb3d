@@ -147,7 +147,9 @@ var enhancedPageViewModel = function () {
       self.switch_step(2);
     }
     else if (self.step() == 2) {
-
+      console.log('switch to step 3');
+      $('#finish_img').attr('src', '../img_api/get_3d_pic/' + self.name + '?t=' + Math.random());
+      self.switch_step(3);
     }
   };
 
