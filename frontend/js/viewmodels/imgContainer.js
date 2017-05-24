@@ -15,6 +15,8 @@ var imgContainerViewModel = function (parent) {
         alert('请确认上传文件是否为图片');
       }
       $("#imgContainer").attr('src', res.src + '?t=' + Math.random());
+      self.img_width(res.width);
+      self.img_height(res.height);
       self.submitted(true);
     };
     var option = {

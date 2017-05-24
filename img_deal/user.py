@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, render_template, request, jsonify, Response, session, redirect
-from img_deal.actions import user as user_act
+from actions import user as user_act
 
 user = Blueprint('user', __name__, template_folder="templates", static_folder="static")
 

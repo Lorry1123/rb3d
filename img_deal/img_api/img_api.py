@@ -6,16 +6,19 @@ import datetime
 import requests
 import hashlib
 from PIL import Image
+
 from img_deal.actions import image_act as img_act
+
 
 test = Blueprint('test', __name__)
 DEFAULT_IMAGE_PATH = 'img_deal/img_api/img/'
+
+from img_deal.tasks import image as img_task
 
 
 @test.route('/get_pic', methods=['POST', 'GET'])
 @test.route('/get_pic/<string:name>', methods=['POST', 'GET'])
 def get_pic(name=''):
-    print name
     img = file(DEFAULT_IMAGE_PATH + name + '.jpg')
     resp = Response(img, mimetype="image/jpeg")
 
@@ -33,14 +36,14 @@ def get_3d_pic(name=''):
 @test.route('/upload_pic', methods=['POST', 'GET'])
 @test.route('/upload_pic/<string:name>', methods=['POST', 'GET'])
 def upload_pic(name=''):
-    # name = request.values.get('name')
     print 'name:', name
     file_tmp = request.files['file']
     img = Image.open(file_tmp)
     img.save(DEFAULT_IMAGE_PATH + name + '.jpg', 'jpeg')
     # img_act.save_to_db(name)
+    print img.size
 
-    return jsonify(status=0, src='../img_api/get_pic/' + name)
+    return jsonify(status=0, src='../img_api/get_pic/' + name, width=img.size[0], height=img.size[1])
 
 
 @test.route('/get_lov', methods=['POST', 'GET'])
@@ -69,6 +72,11 @@ def make_lov():
     return resp
 
 
+@test.route('/add', methods=['POST', 'GET'])
+def add():
+    img_task.add.delay(1, 3)
+
+    return jsonify(status=1)
 
 # @test.route('/send_msg_yunpian', methods=['POST', 'GET'])
 # def send_msg_yunpian():

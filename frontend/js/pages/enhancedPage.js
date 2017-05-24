@@ -12,6 +12,9 @@ var enhancedPageViewModel = function () {
   self.step = ko.observable(0);
   self.lov_calced = ko.observable(false);
 
+  self.img_width = ko.observable(0);
+  self.img_height = ko.observable(0);
+
   self.x_low = ko.observable(0);
   self.y_low = ko.observable(0);
   self.x_high = ko.observable(0);
@@ -25,6 +28,8 @@ var enhancedPageViewModel = function () {
   self.screen_x = ko.observable(0);
   self.screen_y = ko.observable(0);
   self.screen_size = ko.observable(0);
+
+  self.send_to_task = ko.observable(0);
 
   self.threshold = ko.observable(0.5);
   self.check_input = ko.computed(function () {
@@ -42,6 +47,13 @@ var enhancedPageViewModel = function () {
     }
 
     return self.threshold();
+  });
+
+  self.expect_time = ko.computed(function () {
+    var x = self.img_width();
+    var y = self.img_height();
+    var area = x * y;
+    return parseInt(area / (500 * 300) * 20 + 1);
   });
 
 
@@ -141,14 +153,20 @@ var enhancedPageViewModel = function () {
         alert('请先上传图片');
         return;
       }
-      if (!self.lov_calced()) {
-        self.calc_lov();
-      }
+      // if (!self.lov_calced()) {
+      //   self.calc_lov();
+      // }
       self.switch_step(2);
     }
     else if (self.step() == 2) {
       console.log('switch to step 3');
-      $('#finish_img').attr('src', '../img_api/get_3d_pic/' + self.name + '?t=' + Math.random());
+      if (self.send_to_task()) {
+        // $.post('', {} ,function() {});
+        console.log('send to task');
+      }
+      else {
+        $('#finish_img').attr('src', '../img_api/get_3d_pic/' + self.name + '?t=' + Math.random());
+      }
       self.switch_step(3);
     }
   };

@@ -112,6 +112,12 @@
       </div>
 
       <div id="finish_step" class="row">
+        <div id="confirm_append" class="checkbox col-md-offset-2">
+          <label>
+          <input type="checkbox" data-bind="checked: send_to_task">图片处理时间可能较长(约<span data-bind="text: expect_time"></span>秒)，选择该项跳过等待，做好后短信通知您
+          </label>
+        </div>
+        <br>
         <div class="col-md-2 col-md-offset-4">
           <button class="btn btn-primary btn-large btn-block" data-bind="click: function() { switch_step(1); }">上一步
           </button>
@@ -133,6 +139,7 @@
       </ol>
       <div class="row">
         <img id="finish_img" style="display: block; margin: auto;">
+        <h3 class="col-md-10" style="display: block; margin: auto" data-bind="visible: send_to_task">已为您提交任务～请注意短信提示～</h3>
         <br>
         <div class="col-md-2 col-md-offset-5">
         <a class="btn btn-success btn-large btn-clock" href="../img_deal/list">前往图片列表页</a>

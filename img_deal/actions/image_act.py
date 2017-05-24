@@ -4,7 +4,6 @@ from img_deal.img_api.ImageReader import ImageReader
 from img_deal.actions import img as img_db
 from flask import session
 
-
 DEFAULT_IMAGE_PATH = 'img_deal/img_api/img/'
 
 

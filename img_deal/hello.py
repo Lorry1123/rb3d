@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, render_template, request, jsonify, Response, session, redirect
-from img_deal.ext.decorators import login_required
+from ext.decorators import login_required
 
 IMG_DEAL_NAME = 'img_deal'
 
