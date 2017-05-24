@@ -34,3 +34,18 @@ def make_lov(name, area, threshold, size):
     ret = file(DEFAULT_IMAGE_PATH + name + '_lov.jpg')
 
     return ret
+
+
+def make_3d_pic_enhanced(name, area, threshold, size, screen, send_to_task=0):
+    img = ImageReader(path=DEFAULT_IMAGE_PATH, name=name)
+    img.calc_lov(size=size, area=area, threshold=threshold)
+    img.show_lov(show=False)
+
+    img.set_screen(screen['width'], screen['height'], screen['size'])
+
+    img.calc_deep_map()
+    img.red_blue_translation()
+
+    if not send_to_task:
+        ret = file(DEFAULT_IMAGE_PATH + name + '_3d' + '.jpg')
+        return ret

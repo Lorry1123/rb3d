@@ -161,8 +161,21 @@ var enhancedPageViewModel = function () {
     else if (self.step() == 2) {
       console.log('switch to step 3');
       if (self.send_to_task()) {
-        // $.post('', {} ,function() {});
-        console.log('send to task');
+        var data = {
+          name: self.name,
+          x_low: self.x_low() || 0,
+          y_low: self.y_low() || 0,
+          x_high: self.x_high() || 9999,
+          y_high: self.y_high() || 9999,
+          threshold: self.threshold() || 0.05,
+          size: self.size(),
+          screen_x: self.screen_x(),
+          screen_y: self.screen_y(),
+          screen_size: self.screen_size()
+        };
+        $.post('../img_api/send_to_task', data, function(res) {
+          console.log('send to task');
+        });
       }
       else {
         $('#finish_img').attr('src', '../img_api/get_3d_pic/' + self.name + '?t=' + Math.random());
@@ -173,7 +186,7 @@ var enhancedPageViewModel = function () {
 
   self.init = function () {
     self.set_image_name();
-    self.name = 'test';
+    // self.name = 'test';
 
     self.switch_step(1);
 

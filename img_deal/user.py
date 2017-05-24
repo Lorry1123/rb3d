@@ -29,6 +29,7 @@ def login_check():
 
     if not r:
         session['uid'] = uid
+        session['mobile'] = li[0]['mobile']
         return jsonify(status=0, msg='ok')
     else:
         return jsonify(status=-2, error='uid or psw is wrong')

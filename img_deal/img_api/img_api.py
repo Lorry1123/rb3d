@@ -1,6 +1,6 @@
 # coding: utf8
 
-from flask import Flask, Blueprint, Response, request, jsonify
+from flask import Flask, Blueprint, Response, request, jsonify, session
 import json
 import datetime
 import requests
@@ -40,7 +40,7 @@ def upload_pic(name=''):
     file_tmp = request.files['file']
     img = Image.open(file_tmp)
     img.save(DEFAULT_IMAGE_PATH + name + '.jpg', 'jpeg')
-    # img_act.save_to_db(name)
+    img_act.save_to_db(name)
     print img.size
 
     return jsonify(status=0, src='../img_api/get_pic/' + name, width=img.size[0], height=img.size[1])
@@ -75,6 +75,30 @@ def make_lov():
 @test.route('/add', methods=['POST', 'GET'])
 def add():
     img_task.add.delay(1, 3)
+
+    return jsonify(status=1)
+
+
+@test.route('/send_to_task', methods=['POST', 'GET'])
+def send_to_task():
+    print request.values.get('name'), request.values.get('x_low')
+    print '-------------'
+    name = request.values.get('name')
+    x_low = int(request.values.get('x_low'))
+    y_low = int(request.values.get('y_low'))
+    x_high = int(request.values.get('x_high'))
+    y_high = int(request.values.get('y_high'))
+    threshold = float(request.values.get('threshold'))
+    size = int(request.values.get('size'))
+    screen_x = int(request.values.get('screen_x'))
+    screen_y = int(request.values.get('screen_y'))
+    screen_size = float(request.values.get('screen_size'))
+    area = dict(x_low=x_low, x_high=x_high, y_low=y_low, y_high=y_high)
+    screen = dict(width=screen_x, height=screen_y, size=screen_size)
+
+    se = dict(uid=session['uid'], mobile=session['mobile'])
+
+    img_task.make_3d.delay(name, area, threshold, size, screen, se)
 
     return jsonify(status=1)
 

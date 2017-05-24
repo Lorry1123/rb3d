@@ -30,6 +30,12 @@ class ImageReader:
         print '==========='
         print self.img.size
 
+    def set_screen(self, screen_x, screen_y, screen_size):
+        screen_x = 1680 if not screen_x else screen_x
+        screen_y = 1050 if not screen_y else screen_y
+        screen_size = 13 if not screen_size else screen_size
+        self.Mmax_pixel = self.Mmax * (math.sqrt(screen_x * screen_x + screen_y * screen_y) / 2.54 * screen_size)
+
     def save(self, path='', name=''):
         if not path:
             path = self.path
@@ -63,6 +69,7 @@ class ImageReader:
                 img_res_array[i, j] = (r, g, b)
 
         # img_res.show()
+        print '3d pic saved'
         img_res.save(path + name + '_3d.jpg', 'jpeg')
 
     def calc_deep_map(self, debug_mode=False, debug_path='', name=''):
